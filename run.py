@@ -278,8 +278,12 @@ def fetchRelatedContent(post):
         page_info = post["page_info"]
         if page_info["type"] == "video" and page_info["urls"] is not None:
             fetchVideo(post, "resources")
-    if "pics" in post:
+        if "pics" in post:
         for pic in post["pics"]:
+            # 添加类型检查
+            if isinstance(pic, str):
+                print(f"跳过无效图片条目: {pic}")
+                continue
             fetchPhoto(pic, post["id"], "resources")
     fetchComments(post, "ext")
 
